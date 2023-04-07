@@ -39,7 +39,7 @@ namespace Easy_DB_Manager
 
         private void create_NewDB_Click(object sender, EventArgs e)
         {
-            _= DB.CreateDB(connection_ServerName.Text, create_DateBaseNameField.Text);
+            _ = DB.CreateDB(connection_ServerName.Text, create_DateBaseNameField.Text);
         }
 
         private void create_foreignKey_CheckedChanged(object sender, EventArgs e)
@@ -103,7 +103,45 @@ namespace Easy_DB_Manager
                     strCommand += " ";
             }
 
-            _= DB.CreateTable(create_TableNameField.Text, strCommand, connection_ServerName.Text, create_DateBaseNameField.Text);
+            _ = DB.CreateTable(create_TableNameField.Text, strCommand, connection_ServerName.Text, create_DateBaseNameField.Text);
+        }
+
+        private void read_readTableList_Click(object sender, EventArgs e)
+        {
+            _ = DB.ReadAllTablesFromDB(connection_ServerName.Text, read_NameBDField.Text);
+        }
+
+        private void read_readData_Click(object sender, EventArgs e)
+        {
+            string columns = "";
+
+            _ = DB.ReadDataOfTable(connection_ServerName.Text, read_NameBDField.Text, read_TableNameField.Text, columns, read_allColumns.Checked);
+        }
+
+        private void update_UpdateValue_Click(object sender, EventArgs e)
+        {
+            _ = DB.UpdateValue(connection_ServerName.Text, update_DBNameField.Text, update_TableNameField.Text,
+                update_ColumnNameField.Text, update_NewValueField.Text, update_FilterColumnNameField.Text, update_FilterColumnValueField.Text);
+        }
+
+        private void delete_DeleteDataBase_Click(object sender, EventArgs e)
+        {
+            _ = DB.DropDB(connection_ServerName.Text, delete_DBNameField.Text);
+        }
+
+        private void delete_DeleteTable_Click(object sender, EventArgs e)
+        {
+            _ = DB.DropTable(connection_ServerName.Text, delete_DBNameField.Text, delete_TableNameField.Text);
+        }
+
+        private void delete_DeleteRows_Click(object sender, EventArgs e)
+        {
+            _ = DB.DeleteFromTable(connection_ServerName.Text, delete_DBNameField.Text, delete_TableNameField.Text, delete_ColumnNameField.Text, delete_RowsValueField.Text);
+        }
+
+        private void add_addEntry_Click(object sender, EventArgs e)
+        {
+            _ = DB.AddDataInTable(connection_ServerName.Text, add_NameBDField.Text, add_TableNameField.Text, add_ColumnNameField.Text, add_ColumnValues.Text);
         }
     }
 }

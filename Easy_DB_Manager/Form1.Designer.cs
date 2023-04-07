@@ -277,7 +277,7 @@
             connection_ServerName.Name = "connection_ServerName";
             connection_ServerName.Size = new Size(308, 27);
             connection_ServerName.TabIndex = 2;
-            connection_ServerName.Text = "DESKTOP-HHO6PH0";
+            connection_ServerName.Text = "DESKTOP-K60TA32\\SQLEXPRESS";
             // 
             // label1
             // 
@@ -688,6 +688,7 @@
             read_readData.TabIndex = 15;
             read_readData.Text = "Читать данные";
             read_readData.UseVisualStyleBackColor = false;
+            read_readData.Click += read_readData_Click;
             // 
             // read_customColumns
             // 
@@ -724,6 +725,7 @@
             read_readTableList.TabIndex = 11;
             read_readTableList.Text = "Читать список таблиц из БД";
             read_readTableList.UseVisualStyleBackColor = false;
+            read_readTableList.Click += read_readTableList_Click;
             // 
             // read_TableNameField
             // 
@@ -778,6 +780,8 @@
             // 
             // addPanel
             // 
+            addPanel.AutoScroll = true;
+            addPanel.AutoSize = true;
             addPanel.Controls.Add(label27);
             addPanel.Controls.Add(add_ColumnValues);
             addPanel.Controls.Add(add_addEntry);
@@ -796,7 +800,7 @@
             // label27
             // 
             label27.Anchor = AnchorStyles.None;
-            label27.Location = new Point(54, 199);
+            label27.Location = new Point(67, 199);
             label27.Margin = new Padding(10);
             label27.Name = "label27";
             label27.Size = new Size(238, 31);
@@ -807,7 +811,7 @@
             // add_ColumnValues
             // 
             add_ColumnValues.Anchor = AnchorStyles.None;
-            add_ColumnValues.Location = new Point(326, 274);
+            add_ColumnValues.Location = new Point(339, 274);
             add_ColumnValues.Margin = new Padding(10);
             add_ColumnValues.Name = "add_ColumnValues";
             add_ColumnValues.Size = new Size(308, 27);
@@ -817,29 +821,30 @@
             // 
             add_addEntry.Anchor = AnchorStyles.None;
             add_addEntry.BackColor = Color.Gainsboro;
-            add_addEntry.Location = new Point(238, 381);
+            add_addEntry.Location = new Point(251, 381);
             add_addEntry.Margin = new Padding(10);
             add_addEntry.Name = "add_addEntry";
             add_addEntry.Size = new Size(308, 32);
             add_addEntry.TabIndex = 11;
             add_addEntry.Text = "Добавить запись";
             add_addEntry.UseVisualStyleBackColor = false;
+            add_addEntry.Click += add_addEntry_Click;
             // 
             // label29
             // 
             label29.Anchor = AnchorStyles.None;
-            label29.Location = new Point(-19, 264);
+            label29.Location = new Point(12, 256);
             label29.Margin = new Padding(10);
             label29.Name = "label29";
-            label29.Size = new Size(311, 44);
+            label29.Size = new Size(293, 87);
             label29.TabIndex = 19;
-            label29.Text = "Значения столбцов через запятую в порядке указанном  в предидущем поле";
+            label29.Text = "Значения столбцов через запятую(если тип данных не числовой оберните в одинарные кавычки) в порядке указанном  в предидущем поле";
             label29.TextAlign = ContentAlignment.MiddleRight;
             // 
             // add_TableNameField
             // 
             add_TableNameField.Anchor = AnchorStyles.None;
-            add_TableNameField.Location = new Point(326, 133);
+            add_TableNameField.Location = new Point(339, 133);
             add_TableNameField.Margin = new Padding(10);
             add_TableNameField.Name = "add_TableNameField";
             add_TableNameField.Size = new Size(308, 27);
@@ -848,7 +853,7 @@
             // add_ColumnNameField
             // 
             add_ColumnNameField.Anchor = AnchorStyles.None;
-            add_ColumnNameField.Location = new Point(326, 201);
+            add_ColumnNameField.Location = new Point(339, 201);
             add_ColumnNameField.Margin = new Padding(10);
             add_ColumnNameField.Name = "add_ColumnNameField";
             add_ColumnNameField.Size = new Size(308, 27);
@@ -857,7 +862,7 @@
             // label30
             // 
             label30.Anchor = AnchorStyles.None;
-            label30.Location = new Point(136, 136);
+            label30.Location = new Point(149, 136);
             label30.Margin = new Padding(10);
             label30.Name = "label30";
             label30.Size = new Size(155, 20);
@@ -868,7 +873,7 @@
             // add_NameBDField
             // 
             add_NameBDField.Anchor = AnchorStyles.None;
-            add_NameBDField.Location = new Point(326, 83);
+            add_NameBDField.Location = new Point(339, 83);
             add_NameBDField.Margin = new Padding(10);
             add_NameBDField.Name = "add_NameBDField";
             add_NameBDField.Size = new Size(308, 27);
@@ -877,7 +882,7 @@
             // label31
             // 
             label31.Anchor = AnchorStyles.None;
-            label31.Location = new Point(136, 87);
+            label31.Location = new Point(149, 87);
             label31.Margin = new Padding(10);
             label31.Name = "label31";
             label31.Size = new Size(155, 20);
@@ -988,6 +993,7 @@
             update_UpdateValue.TabIndex = 11;
             update_UpdateValue.Text = "Изменить значение";
             update_UpdateValue.UseVisualStyleBackColor = false;
+            update_UpdateValue.Click += update_UpdateValue_Click;
             // 
             // label20
             // 
@@ -1090,6 +1096,7 @@
             delete_DeleteDataBase.TabIndex = 18;
             delete_DeleteDataBase.Text = "Удалить базу данных";
             delete_DeleteDataBase.UseVisualStyleBackColor = false;
+            delete_DeleteDataBase.Click += delete_DeleteDataBase_Click;
             // 
             // delete_DeleteRows
             // 
@@ -1102,6 +1109,7 @@
             delete_DeleteRows.TabIndex = 17;
             delete_DeleteRows.Text = "Удалить строки";
             delete_DeleteRows.UseVisualStyleBackColor = false;
+            delete_DeleteRows.Click += delete_DeleteRows_Click;
             // 
             // label17
             // 
@@ -1154,6 +1162,7 @@
             delete_DeleteTable.TabIndex = 11;
             delete_DeleteTable.Text = "Удалить таблицу";
             delete_DeleteTable.UseVisualStyleBackColor = false;
+            delete_DeleteTable.Click += delete_DeleteTable_Click;
             // 
             // delete_TableNameField
             // 
@@ -1218,6 +1227,7 @@
             readPanel.ResumeLayout(false);
             readPanel.PerformLayout();
             add.ResumeLayout(false);
+            add.PerformLayout();
             addPanel.ResumeLayout(false);
             addPanel.PerformLayout();
             update.ResumeLayout(false);
