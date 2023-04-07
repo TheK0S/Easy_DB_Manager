@@ -457,6 +457,7 @@
             create_removeColumn.TabIndex = 24;
             create_removeColumn.Text = "Удалить столбец";
             create_removeColumn.UseVisualStyleBackColor = false;
+            create_removeColumn.Click += create_removeColumn_Click;
             // 
             // create_addColumn
             // 
@@ -570,6 +571,7 @@
             create_Table.TabIndex = 10;
             create_Table.Text = "Создать таблицу";
             create_Table.UseVisualStyleBackColor = false;
+            create_Table.Click += create_Table_Click;
             // 
             // create_NewDB
             // 

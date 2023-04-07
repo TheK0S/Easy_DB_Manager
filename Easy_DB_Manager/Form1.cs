@@ -1,4 +1,5 @@
 using System.Data.Linq;
+using System.Security.Policy;
 using LinqToDB;
 using LinqToDB.SqlQuery;
 
@@ -21,16 +22,24 @@ namespace Easy_DB_Manager
             add_NameBDField.DataBindings.Add(new Binding("Text", connection_DataBaseNameField, "Text"));
             update_DBNameField.DataBindings.Add(new Binding("Text", connection_DataBaseNameField, "Text"));
             delete_DBNameField.DataBindings.Add(new Binding("Text", connection_DataBaseNameField, "Text"));
+
+            read_TableNameField.DataBindings.Add(new Binding("Text", create_TableNameField, "Text"));
+            add_TableNameField.DataBindings.Add(new Binding("Text", create_TableNameField, "Text"));
+            update_TableNameField.DataBindings.Add(new Binding("Text", create_TableNameField, "Text"));
+            delete_TableNameField.DataBindings.Add(new Binding("Text", create_TableNameField, "Text"));
         }
 
-        //public void ShowMessageBox(string textMesseget, string headerMSB, bool isError)
-        //{
-        //    MessageBox.Show(textMesseget, headerMSB, MessageBoxIcon.)
-        //}
+        void PrintColumnsList()
+        {
+            create_labelCurrentColumns.Text = "";
+
+            foreach (var item in columns)
+                create_labelCurrentColumns.Text += item + "\n";
+        }
 
         private void create_NewDB_Click(object sender, EventArgs e)
         {
-            _ = DB.CreateDB(connection_ServerName.Text, create_DateBaseNameField.Text);
+            _= DB.CreateDB(connection_ServerName.Text, create_DateBaseNameField.Text);
         }
 
         private void create_foreignKey_CheckedChanged(object sender, EventArgs e)
@@ -48,17 +57,53 @@ namespace Easy_DB_Manager
 
         private void create_addColumn_Click(object sender, EventArgs e)
         {
-            columns.Add($"{create_ColumnsName.Text ?? ""} " +
-                $"{create_dataTypes.SelectedValue?.ToString() ?? ""} ({create_dataTypeRange.Value}) " +
-                $"{create_primaryKey.Text} " +
-                $"");
+            string columnFormation = $"{create_ColumnsName.Text ?? ""}  {create_dataTypes.SelectedItem.ToString() ?? ""}";
 
-            create_labelCurrentColumns.Text = "";
-
-            foreach (var item in columns)
+            if (create_dataTypes.SelectedItem.ToString() == "NVARCHAR" || create_dataTypes.SelectedItem.ToString() == "VARCHAR")
+                columnFormation += $"({(int)create_dataTypeRange.Value})";
+            if (create_primaryKey.Checked) columnFormation += "  PRIMARY KEY";
+            if (create_foreignKey.Checked) columnFormation += $"  FOREIGN KEY REFERENCES {create_foreignTableNameField.Text ?? ""}({create_foreignColumnNameField.Text ?? ""})";
+            if (create_notNull.Checked) columnFormation += "  NOT NULL";
+            if (create_unique.Checked) columnFormation += "  UNIQUE";
+            if (create_identity.Checked) columnFormation += "  IDENTITY";
+            if (create_default.Checked)
             {
-                create_labelCurrentColumns.Text += item + "\n";
+                if (create_dataTypes.SelectedItem.ToString() == "INT" || create_dataTypes.SelectedItem.ToString() == "SMALLINT" || create_dataTypes.SelectedItem.ToString() == "FLOAT"
+                    || create_dataTypes.SelectedItem.ToString() == "REAL" || create_dataTypes.SelectedItem.ToString() == "MONEY")
+                {
+                    columnFormation += $"  DEFAULT {create_defaultValueField.Text ?? ""}";
+                }
+                else
+                {
+                    columnFormation += $"  DEFAULT '{create_defaultValueField.Text ?? ""}'";
+                }
             }
+            columns.Add(columnFormation);
+
+            PrintColumnsList();
+        }
+
+        private void create_removeColumn_Click(object sender, EventArgs e)
+        {
+            columns.RemoveAt(columns.Count - 1);
+            PrintColumnsList();
+        }
+
+        private void create_Table_Click(object sender, EventArgs e)
+        {
+            string strCommand = "";
+
+            for (int i = 0; i < columns.Count; i++)
+            {
+                strCommand += columns[i];
+
+                if (i < columns.Count - 1)
+                    strCommand += ", ";
+                else
+                    strCommand += " ";
+            }
+
+            _= DB.CreateTable(create_TableNameField.Text, strCommand, connection_ServerName.Text, create_DateBaseNameField.Text);
         }
     }
 }

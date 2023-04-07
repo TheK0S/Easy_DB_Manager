@@ -35,19 +35,20 @@ namespace Easy_DB_Manager
             }
         }
 
-        public static async Task CreateTable(string dataSource, string nameDB)
+        public static async Task CreateTable(string tableName, string strCommand, string dataSource, string nameDB)
         {
-            using (SqlConnection connection = new SqlConnection(GetConnectionString(dataSource, "master")))
+            using (SqlConnection connection = new SqlConnection(GetConnectionString(dataSource, nameDB)))
             {
                 try
                 {
                     await connection.OpenAsync();
                     SqlCommand command = new SqlCommand(
-                        $"CREATE DATABASE {nameDB}", connection);
+                        $"CREATE TABLE {tableName} ({strCommand});", connection);
+
                     await command.ExecuteNonQueryAsync();
                     await connection.CloseAsync();
 
-                    MessageBox.Show($"База данных {nameDB} успешно добавлена", "Выполнено");
+                    MessageBox.Show($"Таблица {tableName} успешно добавлена", "Выполнено");
                 }
                 catch (Exception ex)
                 {
